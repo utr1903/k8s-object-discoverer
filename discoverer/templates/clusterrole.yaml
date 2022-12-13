@@ -5,6 +5,12 @@ metadata:
   labels:
     app: discoverer
 rules:
-  - apiGroups: [""] # "" indicates the core API group
-    resources: ["pods"]
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: ["apps"]
+    resources: ["*"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: ["stable.example.com"]
+    resources: ["*"]
     verbs: ["get", "watch", "list"]
