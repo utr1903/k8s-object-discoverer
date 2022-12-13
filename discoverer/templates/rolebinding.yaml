@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: discoverer
+  namespace: discoverer
+subjects:
+  - kind: ServiceAccount
+    name: discoverer
+    namespace: discoverer
+roleRef:
+  kind: ClusterRole
+  name: discoverer
+  apiGroup: rbac.authorization.k8s.io

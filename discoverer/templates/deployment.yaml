@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discoverer
+  namespace: discoverer
+  labels:
+    app: discoverer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discoverer
+  template:
+    metadata:
+      labels:
+        app: discoverer
+    spec:
+      serviceAccountName: discoverer
+      containers:
+        - name: discoverer
+          image: nginx
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
